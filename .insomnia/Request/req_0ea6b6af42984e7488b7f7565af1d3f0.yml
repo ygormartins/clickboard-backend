@@ -1,0 +1,21 @@
+_id: req_0ea6b6af42984e7488b7f7565af1d3f0
+type: Request
+parentId: fld_c81efbad550e4aaab80328d1183e3216
+modified: 1655549797174
+created: 1655545677879
+url: "{{ _.baseUrl }}/{{ _.path }}/62adae04447fa4b3fa15ee80"
+name: Delete Board
+description: ""
+method: DELETE
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1655541936713
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
