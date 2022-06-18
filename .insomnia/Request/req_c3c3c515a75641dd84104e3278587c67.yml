@@ -1,0 +1,21 @@
+_id: req_c3c3c515a75641dd84104e3278587c67
+type: Request
+parentId: fld_c81efbad550e4aaab80328d1183e3216
+modified: 1655549951651
+created: 1655549946869
+url: "{{ _.baseUrl }}/{{ _.path }}/62adae04447fa4b3fa15ee80"
+name: Get Board
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1655541936788
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

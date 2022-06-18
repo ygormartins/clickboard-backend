@@ -1,0 +1,29 @@
+_id: req_9c7fb2cfadf14c369c44be954a5c7b25
+type: Request
+parentId: fld_c81efbad550e4aaab80328d1183e3216
+modified: 1655549810155
+created: 1655549746402
+url: "{{ _.baseUrl }}/{{ _.path }}/62adae04447fa4b3fa15ee80"
+name: Update Board
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"description": "Changed description"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_7f015b42eec64a9ba05e0ab88a43e864
+authentication: {}
+metaSortKey: -1655541936738
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
