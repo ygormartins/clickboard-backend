@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Schema as MongooseSchema, Types } from 'mongoose';
 import { Document } from 'mongoose';
 
 type BoardDocument = Board & Document;
@@ -7,6 +8,9 @@ type BoardDocument = Board & Document;
 class Board {
   @Prop({ type: String, required: true })
   name: string;
+
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'columns' }] })
+  columns?: Types.ObjectId[];
 
   @Prop({ type: String })
   description?: string;
