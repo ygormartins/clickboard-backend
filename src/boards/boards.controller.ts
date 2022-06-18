@@ -6,7 +6,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
+import { paginated } from 'src/common/pagination/pagination';
+import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
@@ -16,8 +19,12 @@ export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}
 
   @Get()
-  findAll() {
-    return this.boardsService.getBoards();
+  findAll(@Query() query: PaginationDTO) {
+    return paginated(
+      query,
+      (args: PaginationDTO) => this.boardsService.getBoards(args),
+      (args: PaginationDTO) => this.boardsService.getBoardsCount(args),
+    );
   }
 
   @Get(':id')

@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { buildPaginationQuery } from 'src/common/pagination/pagination';
+import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { DatabaseModel } from 'src/database/database.model';
 import { Board, BoardDocument } from './boards.schema';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -12,8 +14,20 @@ export class BoardsService {
     private boardModel: DatabaseModel<BoardDocument>,
   ) {}
 
-  async getBoards(): Promise<BoardDocument[]> {
-    return this.boardModel.find();
+  async getBoards(query: PaginationDTO): Promise<BoardDocument[]> {
+    const { filter, project, sort, skip, limit } = buildPaginationQuery(query);
+
+    return this.boardModel
+      .find(filter, project)
+      .sort(sort)
+      .skip(skip)
+      .limit(limit);
+  }
+
+  async getBoardsCount(query: PaginationDTO): Promise<number> {
+    const { filter } = buildPaginationQuery(query);
+
+    return this.boardModel.count(filter);
   }
 
   async getBoard(boardId: string): Promise<Board> {
