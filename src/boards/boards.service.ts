@@ -36,7 +36,7 @@ export class BoardsService {
   async addColumnToBoard(
     boardId: string,
     columnId: Types.ObjectId,
-  ): Promise<Board> {
+  ): Promise<BoardDocument> {
     const board = await this.boardModel.findById(boardId);
 
     board.columns.push(columnId);
@@ -44,11 +44,24 @@ export class BoardsService {
     return board.save();
   }
 
-  async getBoard(boardId: string): Promise<Board> {
+  async removeColumFromBoard(
+    boardId: Types.ObjectId,
+    columnId: Types.ObjectId,
+  ): Promise<BoardDocument> {
+    const board = await this.boardModel.findById(boardId);
+
+    board.columns = board.columns.filter(
+      (column) => String(column) != String(columnId),
+    );
+
+    return board.save();
+  }
+
+  async getBoard(boardId: string): Promise<BoardDocument> {
     return this.boardModel.findById(boardId);
   }
 
-  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+  async createBoard(createBoardDto: CreateBoardDto): Promise<BoardDocument> {
     return this.boardModel.create(createBoardDto);
   }
 
