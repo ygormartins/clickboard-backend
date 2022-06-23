@@ -1,0 +1,26 @@
+_id: req_da1336aa800e4405ac2ecad6c420390c
+type: Request
+parentId: fld_29cebc81d82c4d258f18432c2c366375
+modified: 1655560402809
+created: 1655555803072
+url: "{{ _.baseUrl }}/{{ _.path }}"
+name: Get Columns
+description: ""
+method: GET
+body: {}
+parameters:
+  - name: paginated
+    value: "false"
+    description: ""
+    id: pair_97676e5ea8564e52b9670a1767846622
+    disabled: false
+headers: []
+authentication: {}
+metaSortKey: -1655555803118
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

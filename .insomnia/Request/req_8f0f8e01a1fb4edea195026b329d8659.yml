@@ -1,17 +1,17 @@
-_id: req_0fa6df029283452093c33597cfaead08
+_id: req_8f0f8e01a1fb4edea195026b329d8659
 type: Request
-parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655561015974
-created: 1655541936812
+parentId: fld_941449019d89407ab1d010175076ecb6
+modified: 1655984459296
+created: 1655984413049
 url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Get Boards
+name: Get Tickets
 description: ""
 method: GET
 body: {}
 parameters: []
 headers: []
 authentication: {}
-metaSortKey: -1655541936813
+metaSortKey: -1655984449976
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

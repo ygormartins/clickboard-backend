@@ -1,26 +1,27 @@
-_id: req_548e70cb38854885838d2e98e28528c9
+_id: req_3f724239134449968b7b097533fb6f5d
 type: Request
-parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655984840318
-created: 1655541960308
+parentId: fld_29cebc81d82c4d258f18432c2c366375
+modified: 1655988018174
+created: 1655552079277
 url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Create Board
+name: Create Column
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"name": "My New Board",
-    	"description": "Brief summary of my amazing new board"
+    	"label": "Column 3",
+    	"board": "62b45f0001df961c7376ae43",
+    	"color": "#3d4f58"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_d26d95b0c21c415eac893cce7271150f
+    id: pair_c4dc22b91ec2472cbc749be94e14dda8
 authentication: {}
-metaSortKey: -1655541936763
+metaSortKey: -1655554406677.625
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

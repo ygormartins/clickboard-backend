@@ -1,0 +1,30 @@
+_id: req_5c97e4326005463582e1dd479cda8802
+type: Request
+parentId: fld_941449019d89407ab1d010175076ecb6
+modified: 1655988367222
+created: 1655988300289
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Ticket ID', '', '', '', false,
+  true %}"
+name: Update Ticket
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"description": "This is a very nice updated description that was written only for test purposes blih blih blih bloh bloh bloh"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_829ef08aed54480bb73f744c7575f4bb
+authentication: {}
+metaSortKey: -1655984449876
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

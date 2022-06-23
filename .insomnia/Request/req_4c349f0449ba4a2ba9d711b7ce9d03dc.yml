@@ -1,17 +1,18 @@
-_id: req_0fa6df029283452093c33597cfaead08
+_id: req_4c349f0449ba4a2ba9d711b7ce9d03dc
 type: Request
-parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655561015974
-created: 1655541936812
-url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Get Boards
+parentId: fld_29cebc81d82c4d258f18432c2c366375
+modified: 1655980454278
+created: 1655556689801
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Column ID', '', '', '', false,
+  true %}"
+name: Get Column
 description: ""
 method: GET
 body: {}
 parameters: []
 headers: []
 authentication: {}
-metaSortKey: -1655541936813
+metaSortKey: -1655554872157.75
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

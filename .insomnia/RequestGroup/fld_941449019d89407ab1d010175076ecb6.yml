@@ -1,0 +1,13 @@
+_id: fld_941449019d89407ab1d010175076ecb6
+type: RequestGroup
+parentId: wrk_a7e34620266143f0942087e27012cd06
+modified: 1655984424816
+created: 1655984401435
+name: Tickets
+description: ""
+environment:
+  path: tickets
+environmentPropertyOrder:
+  "&":
+    - path
+metaSortKey: -1655541916299
