@@ -2,7 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongooseSchema, Types } from 'mongoose';
 import { Document } from 'mongoose';
 
-type ColumnDocument = Column & Document;
+type TicketDocument = Ticket & Document;
 
 @Schema({
   timestamps: true,
@@ -15,24 +15,21 @@ type ColumnDocument = Column & Document;
     },
   },
 })
-class Column {
+class Ticket {
   @Prop({ type: String, required: true })
-  label: string;
+  title: string;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
-    ref: 'boards',
+    ref: 'columns',
     required: true,
   })
-  board: Types.ObjectId;
-
-  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'tickets' }] })
-  tickets?: Types.ObjectId[];
+  column: Types.ObjectId;
 
   @Prop({ type: String })
-  color?: string;
+  description?: string;
 }
 
-const ColumnSchema = SchemaFactory.createForClass(Column);
+const TicketSchema = SchemaFactory.createForClass(Ticket);
 
-export { Column, ColumnDocument, ColumnSchema };
+export { Ticket, TicketDocument, TicketSchema };

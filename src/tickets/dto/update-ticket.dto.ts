@@ -1,11 +1,11 @@
 import { IsString, IsOptional } from 'class-validator';
 
-export class UpdateColumnDto {
+export class UpdateTicketDto {
   @IsOptional()
   @IsString()
-  readonly label?: string;
+  readonly title?: string;
 
   @IsOptional()
   @IsString()
-  readonly color?: string;
+  readonly description?: string;
 }

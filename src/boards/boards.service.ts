@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
@@ -7,16 +7,13 @@ import { DatabaseModel } from 'src/database/database.model';
 import { Board, BoardDocument } from './boards.schema';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
-import { Column } from 'src/columns/columns.schema';
-import { ColumnsService } from 'src/columns/columns.service';
+import { Column, ColumnDocument } from 'src/columns/columns.schema';
 
 @Injectable()
 export class BoardsService {
   constructor(
     @InjectModel(Board.name)
     private boardModel: DatabaseModel<BoardDocument>,
-    @Inject(forwardRef(() => ColumnsService))
-    private columnsService: ColumnsService,
   ) {}
 
   async getBoards(query: PaginationDTO): Promise<BoardDocument[]> {
@@ -77,9 +74,15 @@ export class BoardsService {
   }
 
   async deleteBoard(boardId: string): Promise<any> {
-    const board = await this.boardModel.findById(boardId);
-    const boardColumns = [...board?.columns] || [];
-    this.columnsService.deleteManyColumns(boardColumns);
+    const board = await this.boardModel
+      .findById(boardId)
+      .populate('columns', '', Column.name);
+
+    if (!board) throw new NotFoundException("Board doesn't exist");
+
+    board.columns?.forEach((column) => {
+      (column as unknown as ColumnDocument).delete();
+    });
 
     return board.delete();
   }

@@ -1,9 +1,4 @@
-import {
-  forwardRef,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { Board } from 'src/boards/boards.schema';
@@ -11,6 +6,7 @@ import { BoardsService } from 'src/boards/boards.service';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { DatabaseModel } from 'src/database/database.model';
+import { Ticket, TicketDocument } from 'src/tickets/tickets.schema';
 import { Column, ColumnDocument } from './columns.schema';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { UpdateColumnDto } from './dto/update-column.dto';
@@ -20,7 +16,6 @@ export class ColumnsService {
   constructor(
     @InjectModel(Column.name)
     private columnModel: DatabaseModel<ColumnDocument>,
-    @Inject(forwardRef(() => BoardsService))
     private boardsService: BoardsService,
   ) {}
 
@@ -37,7 +32,8 @@ export class ColumnsService {
   async getColumn(columnId: string): Promise<ColumnDocument> {
     return this.columnModel
       .findById(columnId)
-      .populate('board', '', Board.name);
+      .populate('board', '', Board.name)
+      .populate('tickets', '', Ticket.name);
   }
 
   async getColumnsCount(query: PaginationDTO): Promise<number> {
@@ -46,13 +42,39 @@ export class ColumnsService {
     return this.columnModel.count(filter);
   }
 
+  async addTicketToColumn(
+    columnId: string,
+    ticketId: Types.ObjectId,
+  ): Promise<ColumnDocument> {
+    const column = await this.columnModel.findById(columnId);
+
+    column.tickets.push(ticketId);
+
+    return column.save();
+  }
+
+  async removeTicketFromColumn(
+    columnId: Types.ObjectId,
+    ticketId: Types.ObjectId,
+  ): Promise<ColumnDocument> {
+    const column = await this.columnModel.findById(columnId);
+
+    column.tickets = column.tickets.filter(
+      (ticket) => String(ticket) != String(ticketId),
+    );
+
+    return column.save();
+  }
+
   async createColumn(createColumnDto: CreateColumnDto): Promise<any> {
     const newColumn = await this.columnModel.create(createColumnDto);
 
-    return this.boardsService.addColumnToBoard(
+    await this.boardsService.addColumnToBoard(
       createColumnDto.board,
       newColumn._id,
     );
+
+    return newColumn;
   }
 
   async updateColumn(
@@ -63,20 +85,20 @@ export class ColumnsService {
   }
 
   async deleteColumn(columnId: string): Promise<any> {
-    const column = await this.columnModel.findById(columnId);
+    const column = await this.columnModel
+      .findById(columnId)
+      .populate('tickets', '', Ticket.name);
 
     if (!column) throw new NotFoundException("Column doesn't exist");
+
+    column.tickets?.forEach((ticket) => {
+      (ticket as unknown as TicketDocument).delete();
+    });
 
     const board = await this.boardsService.getBoard(String(column.board));
 
     if (board) this.boardsService.removeColumFromBoard(board._id, column._id);
 
     return this.columnModel.deleteById(columnId);
-  }
-
-  async deleteManyColumns(
-    columnIds: string[] | Types.ObjectId[],
-  ): Promise<any> {
-    return this.columnModel.delete({ _id: { $in: columnIds } });
   }
 }
