@@ -1,17 +1,18 @@
-_id: req_0ea6b6af42984e7488b7f7565af1d3f0
+_id: req_2b5121c5d65140e2967a5be1458e2326
 type: Request
-parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655980297530
-created: 1655545677879
-url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Board ID', '', '', '', false, true %}"
-name: Delete Board
+parentId: fld_29cebc81d82c4d258f18432c2c366375
+modified: 1655980440774
+created: 1655556809304
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Column ID', '', '', '', false,
+  true %}"
+name: Delete Column
 description: ""
 method: DELETE
 body: {}
 parameters: []
 headers: []
 authentication: {}
-metaSortKey: -1655541936713
+metaSortKey: -1655553941147.5
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

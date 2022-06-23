@@ -1,0 +1,31 @@
+_id: req_321779f4d5a84e548c49b1eaa31bcc7c
+type: Request
+parentId: fld_941449019d89407ab1d010175076ecb6
+modified: 1655988064551
+created: 1655984449926
+url: "{{ _.baseUrl }}/{{ _.path }}"
+name: Create Ticket
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"title": "My third ticket",
+    	"column": "62b45f0701df961c7376ae45",
+    	"description": "This is a very nice description that was written only for test purposes blah blah blah bleh bleh bleh"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_447921dc77564427a2a832ee76949b2f
+authentication: {}
+metaSortKey: -1655984449926
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

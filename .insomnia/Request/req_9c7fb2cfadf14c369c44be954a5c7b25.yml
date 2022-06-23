@@ -1,9 +1,9 @@
 _id: req_9c7fb2cfadf14c369c44be954a5c7b25
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655549810155
+modified: 1655980349433
 created: 1655549746402
-url: "{{ _.baseUrl }}/{{ _.path }}/62adae04447fa4b3fa15ee80"
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Board ID', '', '', '', false, true %}"
 name: Update Board
 description: ""
 method: PUT
