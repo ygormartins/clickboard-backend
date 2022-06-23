@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
@@ -8,12 +8,15 @@ import { Board, BoardDocument } from './boards.schema';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { Column } from 'src/columns/columns.schema';
+import { ColumnsService } from 'src/columns/columns.service';
 
 @Injectable()
 export class BoardsService {
   constructor(
     @InjectModel(Board.name)
     private boardModel: DatabaseModel<BoardDocument>,
+    @Inject(forwardRef(() => ColumnsService))
+    private columnsService: ColumnsService,
   ) {}
 
   async getBoards(query: PaginationDTO): Promise<BoardDocument[]> {
@@ -21,7 +24,6 @@ export class BoardsService {
 
     return this.boardModel
       .find(filter, project)
-      .populate('columns', '', Column.name)
       .sort(sort)
       .skip(skip)
       .limit(limit);
@@ -58,7 +60,9 @@ export class BoardsService {
   }
 
   async getBoard(boardId: string): Promise<BoardDocument> {
-    return this.boardModel.findById(boardId);
+    return this.boardModel
+      .findById(boardId)
+      .populate('columns', '', Column.name);
   }
 
   async createBoard(createBoardDto: CreateBoardDto): Promise<BoardDocument> {
@@ -73,6 +77,13 @@ export class BoardsService {
   }
 
   async deleteBoard(boardId: string): Promise<any> {
-    return this.boardModel.deleteById(boardId);
+    const board = await this.boardModel.findById(boardId);
+    const boardColumns = [...board?.columns] || [];
+
+    for (const column of boardColumns) {
+      this.columnsService.deleteColumn(String(column));
+    }
+
+    return board.delete();
   }
 }

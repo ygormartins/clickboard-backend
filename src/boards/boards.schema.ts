@@ -4,7 +4,17 @@ import { Document } from 'mongoose';
 
 type BoardDocument = Board & Document;
 
-@Schema({ timestamps: true })
+@Schema({
+  timestamps: true,
+  toJSON: {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      return ret;
+    },
+  },
+})
 class Board {
   @Prop({ type: String, required: true })
   name: string;

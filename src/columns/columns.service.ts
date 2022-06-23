@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Board } from 'src/boards/boards.schema';
 import { BoardsService } from 'src/boards/boards.service';
@@ -14,6 +19,7 @@ export class ColumnsService {
   constructor(
     @InjectModel(Column.name)
     private columnModel: DatabaseModel<ColumnDocument>,
+    @Inject(forwardRef(() => BoardsService))
     private boardsService: BoardsService,
   ) {}
 
@@ -22,14 +28,15 @@ export class ColumnsService {
 
     return this.columnModel
       .find(filter, project)
-      .populate('board', '', Board.name)
       .sort(sort)
       .skip(skip)
       .limit(limit);
   }
 
   async getColumn(columnId: string): Promise<ColumnDocument> {
-    return this.columnModel.findById(columnId);
+    return this.columnModel
+      .findById(columnId)
+      .populate('board', '', Board.name);
   }
 
   async getColumnsCount(query: PaginationDTO): Promise<number> {
@@ -61,9 +68,7 @@ export class ColumnsService {
 
     const board = await this.boardsService.getBoard(String(column.board));
 
-    if (!board) throw new NotFoundException("Board doesn't exist");
-
-    this.boardsService.removeColumFromBoard(board._id, column._id);
+    if (board) this.boardsService.removeColumFromBoard(board._id, column._id);
 
     return this.columnModel.deleteById(columnId);
   }

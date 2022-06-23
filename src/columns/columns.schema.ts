@@ -4,7 +4,17 @@ import { Document } from 'mongoose';
 
 type ColumnDocument = Column & Document;
 
-@Schema({ timestamps: true })
+@Schema({
+  timestamps: true,
+  toJSON: {
+    virtuals: true,
+    versionKey: false,
+    transform: (doc, ret) => {
+      delete ret._id;
+      return ret;
+    },
+  },
+})
 class Column {
   @Prop({ type: String, required: true })
   label: string;

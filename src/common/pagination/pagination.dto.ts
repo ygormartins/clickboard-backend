@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsObject,
   IsOptional,
@@ -42,6 +43,11 @@ export class PaginationDTO {
   @IsString()
   @IsOptional()
   q: string;
+
+  @Transform(({ value }: { value: string }) => value.toLowerCase() === 'true')
+  @IsBoolean()
+  @IsOptional()
+  paginated? = true;
 }
 
 export class PaginatedQuery {

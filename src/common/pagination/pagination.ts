@@ -8,6 +8,10 @@ export const paginated = async (
   let data: any;
   let totalCount: number;
 
+  if (!query.paginated) {
+    return dataFn({ filter: query.filter, sort: query.sort });
+  }
+
   await Promise.all([
     (data = await dataFn(query)),
     (totalCount = await countFn(query)),
@@ -26,7 +30,7 @@ export const paginated = async (
 };
 
 export const buildPaginationQuery = (query: PaginationDTO): PaginatedQuery => {
-  const { filter, sort, fields, limit, page, q } = query;
+  const { filter = {}, sort = {}, fields = [], limit, page, q } = query;
 
   if (q) {
     filter['$text'] = {
