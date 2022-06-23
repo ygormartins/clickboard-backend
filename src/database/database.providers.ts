@@ -1,7 +1,6 @@
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '../config/config.module';
 import { ConfigService } from '../config/config.service';
-import * as MongooseDelete from 'mongoose-delete';
 
 export const DatabaseProviders = [
   MongooseModule.forRootAsync({
@@ -28,17 +27,7 @@ export const DatabaseProviders = [
         uri = `mongodb+srv://${connectionString}`;
       }
 
-      return {
-        uri,
-        connectionFactory: (connection) => {
-          connection.plugin(MongooseDelete, {
-            deletedAt: true,
-            overrideMethods: true,
-          });
-
-          return connection;
-        },
-      };
+      return { uri };
     },
   }),
 ];

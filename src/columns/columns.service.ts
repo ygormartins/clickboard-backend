@@ -1,12 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Board } from 'src/boards/boards.schema';
 import { BoardsService } from 'src/boards/boards.service';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
-import { DatabaseModel } from 'src/database/database.model';
-import { Ticket, TicketDocument } from 'src/tickets/tickets.schema';
+import { Ticket } from 'src/tickets/tickets.schema';
+import { TicketsService } from 'src/tickets/tickets.service';
 import { Column, ColumnDocument } from './columns.schema';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { UpdateColumnDto } from './dto/update-column.dto';
@@ -15,8 +20,11 @@ import { UpdateColumnDto } from './dto/update-column.dto';
 export class ColumnsService {
   constructor(
     @InjectModel(Column.name)
-    private columnModel: DatabaseModel<ColumnDocument>,
+    private columnModel: Model<ColumnDocument>,
+    @Inject(forwardRef(() => BoardsService))
     private boardsService: BoardsService,
+    @Inject(forwardRef(() => TicketsService))
+    private ticketsService: TicketsService,
   ) {}
 
   async getColumns(query: PaginationDTO): Promise<ColumnDocument[]> {
@@ -85,20 +93,20 @@ export class ColumnsService {
   }
 
   async deleteColumn(columnId: string): Promise<any> {
-    const column = await this.columnModel
-      .findById(columnId)
-      .populate('tickets', '', Ticket.name);
+    const column = await this.columnModel.findById(columnId);
 
     if (!column) throw new NotFoundException("Column doesn't exist");
 
-    column.tickets?.forEach((ticket) => {
-      (ticket as unknown as TicketDocument).delete();
+    const ticketsList = [...(column?.tickets || [])];
+
+    ticketsList.forEach((ticket) => {
+      this.ticketsService.deleteTicket(String(ticket));
     });
 
     const board = await this.boardsService.getBoard(String(column.board));
 
     if (board) this.boardsService.removeColumFromBoard(board._id, column._id);
 
-    return this.columnModel.deleteById(columnId);
+    return column.deleteOne();
   }
 }

@@ -909,13 +909,6 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
-"@types/mongoose-delete@^0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@types/mongoose-delete/-/mongoose-delete-0.5.9.tgz#55de05203caa879a434f2de88a6c43165ac26dd1"
-  integrity sha512-ZPTmeP5UAUDTGbg3U0zr4Mf8cIg3YC8KsfxPDO6wFjms+yIGLbyt8xFEtWB08jjGJCQkGCZYU0aRV/efV7rgVw==
-  dependencies:
-    mongoose "^5.11 || ^6"
-
 "@types/node@*":
   version "18.0.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.0.tgz#67c7b724e1bcdd7a8821ce0d5ee184d3b4dd525a"
@@ -3674,12 +3667,7 @@ mongodb@4.7.0:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose-delete@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/mongoose-delete/-/mongoose-delete-0.5.4.tgz#588374bf144cbffa209a549f247e5482054715f2"
-  integrity sha512-zKkcWFEwTneVG4Oiy+qJRJPFCiGlqOJToHeU3a3meJybWsHCnWxdHkGEkFWNY5cmYEv5av3WwByOhPlQ6I+FmQ==
-
-"mongoose@^5.11 || ^6", mongoose@^6.4.0:
+mongoose@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.4.0.tgz#22d6ab436bdf444b833e92faaa53e47b734c15c6"
   integrity sha512-eBDrueap1Zx3qFrcYylTiqTFlL5iTEaYAxoDF1MSRdipwAzChQRMJve+vxHtxPhI2q5tmf9RYHfZwXfTUHPd3g==

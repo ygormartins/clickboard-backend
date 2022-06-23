@@ -1,10 +1,15 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { Column } from 'src/columns/columns.schema';
 import { ColumnsService } from 'src/columns/columns.service';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
-import { DatabaseModel } from 'src/database/database.model';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { Ticket, TicketDocument } from './tickets.schema';
@@ -13,7 +18,8 @@ import { Ticket, TicketDocument } from './tickets.schema';
 export class TicketsService {
   constructor(
     @InjectModel(Ticket.name)
-    private ticketModel: DatabaseModel<TicketDocument>,
+    private ticketModel: Model<TicketDocument>,
+    @Inject(forwardRef(() => ColumnsService))
     private columnsService: ColumnsService,
   ) {}
 
@@ -68,6 +74,6 @@ export class TicketsService {
       this.columnsService.removeTicketFromColumn(column._id, ticket._id);
     }
 
-    return this.ticketModel.deleteById(ticketId);
+    return ticket.deleteOne();
   }
 }
