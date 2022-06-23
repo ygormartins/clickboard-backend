@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Types } from 'mongoose';
 import { Board } from 'src/boards/boards.schema';
 import { BoardsService } from 'src/boards/boards.service';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
@@ -71,5 +72,11 @@ export class ColumnsService {
     if (board) this.boardsService.removeColumFromBoard(board._id, column._id);
 
     return this.columnModel.deleteById(columnId);
+  }
+
+  async deleteManyColumns(
+    columnIds: string[] | Types.ObjectId[],
+  ): Promise<any> {
+    return this.columnModel.delete({ _id: { $in: columnIds } });
   }
 }

@@ -79,10 +79,7 @@ export class BoardsService {
   async deleteBoard(boardId: string): Promise<any> {
     const board = await this.boardModel.findById(boardId);
     const boardColumns = [...board?.columns] || [];
-
-    for (const column of boardColumns) {
-      this.columnsService.deleteColumn(String(column));
-    }
+    this.columnsService.deleteManyColumns(boardColumns);
 
     return board.delete();
   }
