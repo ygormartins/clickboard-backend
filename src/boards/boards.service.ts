@@ -69,6 +69,12 @@ export class BoardsService {
       .populate('columns', '', Column.name);
   }
 
+  async getBoardBySlug(space: string, slug: string) {
+    return this.boardModel
+      .findOne({ slug })
+      .populate('columns', '', Column.name);
+  }
+
   async createBoard(createBoardDto: CreateBoardDto): Promise<BoardDocument> {
     return this.boardModel.create(createBoardDto);
   }

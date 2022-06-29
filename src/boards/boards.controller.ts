@@ -32,6 +32,11 @@ export class BoardsController {
     return this.boardsService.getBoard(boardId);
   }
 
+  @Get(':space/:slug')
+  findOneBySlug(@Param('space') space: string, @Param('slug') slug: string) {
+    return this.boardsService.getBoardBySlug(space, slug);
+  }
+
   @Post()
   create(@Body() createBoardDto: CreateBoardDto) {
     return this.boardsService.createBoard(createBoardDto);

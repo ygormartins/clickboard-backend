@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongooseSchema, Types } from 'mongoose';
 import { Document } from 'mongoose';
+import slugify from 'slugify';
 
 type BoardDocument = Board & Document;
 
@@ -9,7 +10,7 @@ type BoardDocument = Board & Document;
   toJSON: {
     virtuals: true,
     versionKey: false,
-    transform: (doc, ret) => {
+    transform: (_0, ret) => {
       delete ret._id;
       return ret;
     },
@@ -18,6 +19,9 @@ type BoardDocument = Board & Document;
 class Board {
   @Prop({ type: String, required: true })
   name: string;
+
+  @Prop({ type: String })
+  slug?: string;
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'columns' }] })
   columns?: Types.ObjectId[];
@@ -30,6 +34,11 @@ const BoardSchema = SchemaFactory.createForClass(Board);
 
 BoardSchema.index({
   name: 'text',
+});
+
+BoardSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 export { Board, BoardDocument, BoardSchema };
