@@ -20,7 +20,7 @@ class Board {
   @Prop({ type: String, required: true })
   name: string;
 
-  @Prop({ type: String })
+  @Prop({ type: String, index: true })
   slug?: string;
 
   @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'columns' }] })
