@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Schema as MongooseSchema, Types } from 'mongoose';
 import { Document } from 'mongoose';
+import { User } from 'src/users/users.schema';
 
 type TicketDocument = Ticket & Document;
 
@@ -34,5 +35,10 @@ class Ticket {
 }
 
 const TicketSchema = SchemaFactory.createForClass(Ticket);
+
+TicketSchema.pre('find', function (next) {
+  this.populate('assignedTo', '', User.name);
+  next();
+});
 
 export { Ticket, TicketDocument, TicketSchema };
