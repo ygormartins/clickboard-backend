@@ -10,6 +10,7 @@ import { Column } from 'src/columns/columns.schema';
 import { ColumnsService } from 'src/columns/columns.service';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
+import { User } from 'src/users/users.schema';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { Ticket, TicketDocument } from './tickets.schema';
@@ -30,13 +31,15 @@ export class TicketsService {
       .find(filter, project)
       .sort(sort)
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+      .populate('assignedTo', '', User.name);
   }
 
   async getTicket(ticketId: string): Promise<TicketDocument> {
     return this.ticketModel
       .findById(ticketId)
-      .populate('column', '', Column.name);
+      .populate('column', '', Column.name)
+      .populate('assignedTo', '', User.name);
   }
 
   async getTicketsCount(query: PaginationDTO): Promise<number> {

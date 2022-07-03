@@ -26,6 +26,9 @@ class Ticket {
   })
   column: Types.ObjectId;
 
+  @Prop({ type: [{ type: MongooseSchema.Types.ObjectId, ref: 'users' }] })
+  assignedTo?: Types.ObjectId[];
+
   @Prop({ type: String })
   description?: string;
 }

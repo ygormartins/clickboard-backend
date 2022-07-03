@@ -1,4 +1,5 @@
-import { IsString, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsString, IsOptional, IsArray } from 'class-validator';
 
 export class CreateTicketDto {
   @IsString()
@@ -6,6 +7,11 @@ export class CreateTicketDto {
 
   @IsString()
   readonly column: string;
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => String)
+  readonly assignedTo?: string[];
 
   @IsOptional()
   @IsString()
