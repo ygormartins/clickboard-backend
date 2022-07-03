@@ -1,4 +1,11 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ImageInterceptor } from 'src/common/interceptors/image-interceptor';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
@@ -13,7 +20,11 @@ export class AuthController {
   }
 
   @Post('signup')
-  signup(@Body() signUpDto: SignUpDto) {
-    return this.authService.register(signUpDto);
+  @UseInterceptors(ImageInterceptor('avatar'))
+  signup(
+    @Body() signUpDto: SignUpDto,
+    @UploadedFile() avatar: Express.Multer.File,
+  ) {
+    return this.authService.register({ ...signUpDto, avatar });
   }
 }

@@ -17,5 +17,5 @@ export class SignUpDto {
   readonly password: string;
 
   @IsOptional()
-  readonly avatar?: string;
+  readonly avatar?: Express.Multer.File;
 }

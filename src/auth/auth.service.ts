@@ -5,6 +5,7 @@ import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { hash, compare } from 'bcrypt';
+import { resizeImage } from 'src/utils/image.utils';
 
 @Injectable()
 export class AuthService {
@@ -48,10 +49,19 @@ export class AuthService {
       Number(this.configService.get('SALT_ROUNDS')),
     );
 
+    let base64Avatar = undefined;
+
+    if (signUpDto.avatar) {
+      const resizedImage = await resizeImage(signUpDto.avatar.buffer, 100);
+
+      base64Avatar = resizedImage.toString('base64');
+    }
+
     const { email, firstName, lastName, spaceId, avatar } =
       await this.usersService.createUser({
         ...signUpDto,
         password: hashedPassword,
+        avatar: base64Avatar,
       });
 
     return {
