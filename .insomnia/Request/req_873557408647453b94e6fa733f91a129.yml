@@ -1,32 +1,49 @@
 _id: req_873557408647453b94e6fa733f91a129
 type: Request
 parentId: fld_78be03144564469b9f2fca051a1ea349
-modified: 1656836324194
+modified: 1656842718268
 created: 1656835786990
 url: "{{ _.baseUrl }}/{{ _.path }}/signup"
 name: Sign Up
 description: ""
 method: POST
 body:
-  mimeType: application/json
-  text: |-
-    {
-    	"firstName": "Ygor",
-    	"lastName": "Martins",
-    	"email": "ygormartinsr@outlook.com",
-    	"password": "12345678"
-    }
+  mimeType: multipart/form-data
+  params:
+    - name: firstName
+      value: Ygor
+      id: pair_9158b99b1f3b478d830f53c14e562665
+    - name: lastName
+      value: Martins
+      description: ""
+      id: pair_ac975dded9c1451f8df224588e83e884
+    - name: email
+      value: ygormartinsr@outlook.com
+      description: ""
+      id: pair_b4c7ed7f2fa14c6bb3d78403b25d9054
+    - name: password
+      value: "12345678"
+      description: ""
+      id: pair_74891ce01f32456c8cf6902ad51c6108
+    - name: avatar
+      value: file
+      description: ""
+      id: pair_14ed54098a5849bb8803b7579404eb9f
+      type: file
+      multiline: null
+      fileName: /home/ygor/Pictures/Screenshot from 2021-08-06 14-07-06.png
+      disabled: false
 parameters: []
 headers:
   - name: Content-Type
-    value: application/json
+    value: multipart/form-data
     id: pair_95ea59551f6b4cdf8982f9dedb553abd
 authentication: {}
 metaSortKey: -1656835185081
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
-settingDisableRenderRequestBody: false
+settingDisableRenderRequestBody: true
 settingEncodeUrl: true
 settingRebuildPath: true
 settingFollowRedirects: global
