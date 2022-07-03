@@ -1,7 +1,7 @@
 _id: req_9c7fb2cfadf14c369c44be954a5c7b25
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655980349433
+modified: 1656850900376
 created: 1655549746402
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Board ID', '', '', '', false, true %}"
 name: Update Board
@@ -18,7 +18,9 @@ headers:
   - name: Content-Type
     value: application/json
     id: pair_7f015b42eec64a9ba05e0ab88a43e864
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655541936738
 isPrivate: false
 settingStoreCookies: true

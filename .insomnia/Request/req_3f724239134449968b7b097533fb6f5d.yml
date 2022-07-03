@@ -1,7 +1,7 @@
 _id: req_3f724239134449968b7b097533fb6f5d
 type: Request
 parentId: fld_29cebc81d82c4d258f18432c2c366375
-modified: 1656534863690
+modified: 1656850858107
 created: 1655552079277
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Column
@@ -20,7 +20,9 @@ headers:
   - name: Content-Type
     value: application/json
     id: pair_c4dc22b91ec2472cbc749be94e14dda8
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655554406677.625
 isPrivate: false
 settingStoreCookies: true

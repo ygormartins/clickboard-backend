@@ -1,7 +1,7 @@
 _id: req_d60688da250a428192adcd3dccf8edd5
 type: Request
 parentId: fld_2e01d424988549b88619b932cbd58933
-modified: 1656838595219
+modified: 1656850800327
 created: 1656838574653
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'User ID', '', '', '', false, true %}"
 name: Get User
@@ -10,7 +10,9 @@ method: GET
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1656838507056
 isPrivate: false
 settingStoreCookies: true

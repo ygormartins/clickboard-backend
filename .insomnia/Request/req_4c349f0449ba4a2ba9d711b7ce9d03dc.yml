@@ -1,7 +1,7 @@
 _id: req_4c349f0449ba4a2ba9d711b7ce9d03dc
 type: Request
 parentId: fld_29cebc81d82c4d258f18432c2c366375
-modified: 1655980454278
+modified: 1656850852838
 created: 1655556689801
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Column ID', '', '', '', false,
   true %}"
@@ -11,7 +11,9 @@ method: GET
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655554872157.75
 isPrivate: false
 settingStoreCookies: true

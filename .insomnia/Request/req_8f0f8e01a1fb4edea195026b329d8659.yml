@@ -1,7 +1,7 @@
 _id: req_8f0f8e01a1fb4edea195026b329d8659
 type: Request
 parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1655984459296
+modified: 1656850816039
 created: 1655984413049
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Get Tickets
@@ -10,7 +10,9 @@ method: GET
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655984449976
 isPrivate: false
 settingStoreCookies: true

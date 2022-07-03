@@ -1,7 +1,7 @@
 _id: req_78e3467953234b909be8de3935c343f1
 type: Request
 parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1655988393357
+modified: 1656850837738
 created: 1655988385245
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Ticket ID', '', '', '', false,
   true %}"
@@ -11,7 +11,9 @@ method: DELETE
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655984449826
 isPrivate: false
 settingStoreCookies: true

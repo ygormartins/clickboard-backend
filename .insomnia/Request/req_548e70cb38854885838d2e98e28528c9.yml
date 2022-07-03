@@ -1,7 +1,7 @@
 _id: req_548e70cb38854885838d2e98e28528c9
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1656830046170
+modified: 1656850894852
 created: 1655541960308
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Board
@@ -19,7 +19,9 @@ headers:
   - name: Content-Type
     value: application/json
     id: pair_d26d95b0c21c415eac893cce7271150f
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655541936763
 isPrivate: false
 settingStoreCookies: true

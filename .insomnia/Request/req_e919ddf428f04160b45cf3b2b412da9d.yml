@@ -1,7 +1,7 @@
 _id: req_e919ddf428f04160b45cf3b2b412da9d
 type: Request
 parentId: fld_2e01d424988549b88619b932cbd58933
-modified: 1656838799233
+modified: 1656850808798
 created: 1656838768360
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'User ID', '', '', '', false, true %}"
 name: Update User
@@ -18,7 +18,9 @@ headers:
   - name: Content-Type
     value: application/json
     id: pair_81541c48c34c42f69a7c3679a5951218
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1656838506956
 isPrivate: false
 settingStoreCookies: true

@@ -1,7 +1,7 @@
 _id: req_321779f4d5a84e548c49b1eaa31bcc7c
 type: Request
 parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1656534929996
+modified: 1656850823050
 created: 1655984449926
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Ticket
@@ -13,14 +13,17 @@ body:
     {
     	"title": "My first ticket with a sort of longer title hehe blah",
     	"column": "62bcb785a1cf9fb3dabe8c8e",
-    	"description": "This is a very nice description that was written only for test purposes blah blah blah bleh bleh bleh"
+    	"description": "This is a very nice description that was written only for test purposes blah blah blah bleh bleh bleh",
+    	"assignedTo": ["62c169e0ee65f655e534afd6"]
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
     id: pair_447921dc77564427a2a832ee76949b2f
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655984449926
 isPrivate: false
 settingStoreCookies: true

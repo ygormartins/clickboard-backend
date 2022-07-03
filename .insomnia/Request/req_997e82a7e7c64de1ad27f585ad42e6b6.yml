@@ -1,7 +1,7 @@
 _id: req_997e82a7e7c64de1ad27f585ad42e6b6
 type: Request
 parentId: fld_2e01d424988549b88619b932cbd58933
-modified: 1656842895088
+modified: 1656850805312
 created: 1656838614632
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create User
@@ -22,7 +22,9 @@ headers:
   - name: Content-Type
     value: application/json
     id: pair_b38c78e7f076456a8368803014c92771
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1656838507006
 isPrivate: false
 settingStoreCookies: true

@@ -1,7 +1,7 @@
 _id: req_0ea6b6af42984e7488b7f7565af1d3f0
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655980297530
+modified: 1656850907840
 created: 1655545677879
 url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Board ID', '', '', '', false, true %}"
 name: Delete Board
@@ -10,7 +10,9 @@ method: DELETE
 body: {}
 parameters: []
 headers: []
-authentication: {}
+authentication:
+  type: bearer
+  token: "{{ _.accessToken }}"
 metaSortKey: -1655541936713
 isPrivate: false
 settingStoreCookies: true
