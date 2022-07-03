@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const nanoid = require('nanoid-esm');
+
 type UserDocument = User & Document;
 
 @Schema({
@@ -38,7 +41,6 @@ class User {
 const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.pre('save', async function (next) {
-  const { nanoid } = await import('nanoid');
   this.spaceId = nanoid();
 
   next();
