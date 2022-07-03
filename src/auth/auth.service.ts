@@ -1,4 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from 'src/config/config.service';
 import { UserDocument } from 'src/users/users.schema';
 import { UsersService } from 'src/users/users.service';
@@ -12,9 +13,10 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private configService: ConfigService,
+    private jwtService: JwtService,
   ) {}
 
-  async login(
+  async validate(
     loginDto: LoginDto,
   ): Promise<Partial<UserDocument> & { accessToken: string }> {
     const user = await this.usersService.getUserByEmail(loginDto.email);
@@ -24,15 +26,18 @@ export class AuthService {
     if (!(await compare(loginDto.password, user.password)))
       throw new HttpException('Incorrect email or password', 401);
 
-    const { email, firstName, lastName, spaceId, avatar } = user;
+    const { email, firstName, lastName, spaceId, avatar, _id } = user;
+
+    const accessToken = this.getJwtFromPayload({ email, _id });
 
     return {
+      id: _id,
       email,
       firstName,
       lastName,
       spaceId,
       avatar,
-      accessToken: 'blah',
+      accessToken,
     };
   }
 
@@ -57,20 +62,27 @@ export class AuthService {
       base64Avatar = resizedImage.toString('base64');
     }
 
-    const { email, firstName, lastName, spaceId, avatar } =
+    const { email, firstName, lastName, spaceId, avatar, _id } =
       await this.usersService.createUser({
         ...signUpDto,
         password: hashedPassword,
         avatar: base64Avatar,
       });
 
+    const accessToken = this.getJwtFromPayload({ email, _id });
+
     return {
+      id: _id,
       email,
       firstName,
       lastName,
       spaceId,
       avatar,
-      accessToken: 'blah',
+      accessToken,
     };
+  }
+
+  getJwtFromPayload(payload: { email: string; _id: string }): string {
+    return this.jwtService.sign(payload);
   }
 }

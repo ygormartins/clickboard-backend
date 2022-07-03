@@ -2,21 +2,25 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ImageInterceptor } from 'src/common/interceptors/image-interceptor';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
+import { LocalRequest } from './strategies/local.strategy';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseGuards(AuthGuard('local'))
   @Post('login')
-  login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+  login(@Req() req: LocalRequest) {
+    return req.user;
   }
 
   @Post('signup')
