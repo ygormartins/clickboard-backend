@@ -1,0 +1,22 @@
+_id: req_8c8657be36dc4096a6df8ec423102220
+type: Request
+parentId: fld_c81efbad550e4aaab80328d1183e3216
+modified: 1656534223691
+created: 1656534193125
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Space', '', '', '', false, true
+  %}/{% prompt 'Slug', '', '', '', false, true %}"
+name: Get Board by Slug
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1655541936775.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

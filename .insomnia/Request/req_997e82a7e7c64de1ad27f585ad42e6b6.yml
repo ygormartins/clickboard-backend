@@ -1,0 +1,33 @@
+_id: req_997e82a7e7c64de1ad27f585ad42e6b6
+type: Request
+parentId: fld_2e01d424988549b88619b932cbd58933
+modified: 1656838875097
+created: 1656838614632
+url: "{{ _.baseUrl }}/{{ _.path }}"
+name: Create User
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"firstName": "Ygor",
+    	"lastName": "Martins",
+    	"email": "ygormartinsr2@outlook.com",
+    	"password": "password",
+    	"avatar": "{% base64 'encode', 'normal', 'schnfiusryghybfiuewysniubeyfcrwqer' %}"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_b38c78e7f076456a8368803014c92771
+authentication: {}
+metaSortKey: -1656838507006
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

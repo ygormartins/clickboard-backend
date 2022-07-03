@@ -1,26 +1,25 @@
-_id: req_438a2f69bcfe4f1fa763f1506051778c
+_id: req_e919ddf428f04160b45cf3b2b412da9d
 type: Request
-parentId: fld_29cebc81d82c4d258f18432c2c366375
-modified: 1656068757431
-created: 1655556511490
-url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Column ID', '', '', '', false,
-  true %}"
-name: Update Column
+parentId: fld_2e01d424988549b88619b932cbd58933
+modified: 1656838799233
+created: 1656838768360
+url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'User ID', '', '', '', false, true %}"
+name: Update User
 description: ""
 method: PUT
 body:
   mimeType: application/json
   text: |-
     {
-    	"color": "#ca521d"
+    	"lastName": "Da Rosa"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_3ec3917887324126b719e3dbcf6f62c2
+    id: pair_81541c48c34c42f69a7c3679a5951218
 authentication: {}
-metaSortKey: -1655553941197.5
+metaSortKey: -1656838506956
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

@@ -1,0 +1,32 @@
+_id: req_873557408647453b94e6fa733f91a129
+type: Request
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1656836324194
+created: 1656835786990
+url: "{{ _.baseUrl }}/{{ _.path }}/signup"
+name: Sign Up
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"firstName": "Ygor",
+    	"lastName": "Martins",
+    	"email": "ygormartinsr@outlook.com",
+    	"password": "12345678"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_95ea59551f6b4cdf8982f9dedb553abd
+authentication: {}
+metaSortKey: -1656835185081
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

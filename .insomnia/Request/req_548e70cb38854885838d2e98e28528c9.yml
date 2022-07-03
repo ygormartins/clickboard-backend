@@ -1,7 +1,7 @@
 _id: req_548e70cb38854885838d2e98e28528c9
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1655984840318
+modified: 1656830046170
 created: 1655541960308
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Board
@@ -11,7 +11,7 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"name": "My New Board",
+    	"name": "My Second Board",
     	"description": "Brief summary of my amazing new board"
     }
 parameters: []

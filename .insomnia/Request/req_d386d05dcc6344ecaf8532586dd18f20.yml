@@ -1,26 +1,26 @@
-_id: req_438a2f69bcfe4f1fa763f1506051778c
+_id: req_d386d05dcc6344ecaf8532586dd18f20
 type: Request
-parentId: fld_29cebc81d82c4d258f18432c2c366375
-modified: 1656068757431
-created: 1655556511490
-url: "{{ _.baseUrl }}/{{ _.path }}/{% prompt 'Column ID', '', '', '', false,
-  true %}"
-name: Update Column
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1656837838268
+created: 1656835185131
+url: "{{ _.baseUrl }}/{{ _.path }}/login"
+name: Login
 description: ""
-method: PUT
+method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"color": "#ca521d"
+    	"email": "ygormartinsr@outlook.com",
+    	"password": "12345678"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
-    id: pair_3ec3917887324126b719e3dbcf6f62c2
+    id: pair_cb9972d7a9534ab885601f1f63ce72be
 authentication: {}
-metaSortKey: -1655553941197.5
+metaSortKey: -1656835185131
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
