@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './users.schema';
 
 @Injectable()
@@ -23,6 +24,12 @@ export class UsersService {
       .limit(limit);
   }
 
+  async getUsersCount(query: PaginationDTO): Promise<number> {
+    const { filter } = buildPaginationQuery(query);
+
+    return this.userModel.count(filter);
+  }
+
   async getUser(userId: string): Promise<UserDocument> {
     return this.userModel.findById(userId);
   }
@@ -35,8 +42,8 @@ export class UsersService {
     return this.userModel.create(createUserDto);
   }
 
-  async updateUser(userId: string, createUserDto: CreateUserDto): Promise<any> {
-    return this.userModel.updateOne({ _id: userId }, createUserDto);
+  async updateUser(userId: string, updateUserDto: UpdateUserDto): Promise<any> {
+    return this.userModel.updateOne({ _id: userId }, updateUserDto);
   }
 
   async deleteUser(userId: string): Promise<any> {

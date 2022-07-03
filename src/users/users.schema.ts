@@ -39,9 +39,8 @@ const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.pre('save', async function (next) {
   const { nanoid } = await import('nanoid');
-
-  console.log('running :)');
   this.spaceId = nanoid();
+
   next();
 });
 
