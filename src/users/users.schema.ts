@@ -14,6 +14,7 @@ type UserDocument = User & Document;
     transform: (doc, ret) => {
       delete ret._id;
       delete ret.password;
+      delete ret.refreshToken;
       return ret;
     },
   },
@@ -36,6 +37,9 @@ class User {
 
   @Prop({ type: String })
   avatar?: string;
+
+  @Prop({ type: String })
+  refreshToken?: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);
