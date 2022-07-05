@@ -44,8 +44,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard(strategies.JWT))
   @Post('logout')
-  logout(@Req() req: AuthRequest) {
-    return this.authService.logout(req.user._id);
+  async logout(@Req() req: AuthRequest) {
+    await this.authService.logout(req.user._id);
   }
 
   @UseGuards(AuthGuard(strategies.REFRESH))

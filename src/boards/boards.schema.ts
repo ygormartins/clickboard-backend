@@ -37,7 +37,7 @@ BoardSchema.index({
 });
 
 BoardSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true });
+  if (!this.slug.length) this.slug = slugify(this.name, { lower: true });
   next();
 });
 

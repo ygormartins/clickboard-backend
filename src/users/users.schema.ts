@@ -45,7 +45,7 @@ class User {
 const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.pre('save', async function (next) {
-  this.spaceId = nanoid();
+  if (!this.spaceId.length) this.spaceId = nanoid();
 
   next();
 });
