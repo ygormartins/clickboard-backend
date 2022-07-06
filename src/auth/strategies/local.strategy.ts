@@ -14,6 +14,8 @@ export interface LocalRequest extends Request {
     accessToken: string;
     refreshToken: string;
     avatar?: string;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 

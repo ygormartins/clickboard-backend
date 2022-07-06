@@ -1,14 +1,14 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from 'src/config/config.service';
-import { UserDocument } from 'src/users/users.schema';
+import { User, UserDocument } from 'src/users/users.schema';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
 import { hash, compare } from 'bcrypt';
 import { resizeImage } from 'src/utils/image.utils';
 
-export interface AuthResponse extends Partial<UserDocument> {
+export interface AuthResponse extends User {
   accessToken: string;
   refreshToken: string;
 }
@@ -29,11 +29,9 @@ export class AuthService {
     if (!(await compare(loginDto.password, user.password)))
       throw new HttpException('Incorrect email or password', 401);
 
-    const { email, firstName, lastName, spaceId, avatar, _id } = user;
-
     const { accessToken, refreshToken } = await this.getJwtFromPayload({
-      email,
-      _id,
+      email: user.email,
+      _id: user._id,
     });
 
     const hashedRefreshToken = await hash(
@@ -44,13 +42,10 @@ export class AuthService {
     user.refreshToken = hashedRefreshToken;
     user.save();
 
+    const userResponse = user.toJSON() as User;
+
     return {
-      id: _id,
-      email,
-      firstName,
-      lastName,
-      spaceId,
-      avatar,
+      ...userResponse,
       accessToken,
       refreshToken,
     };
@@ -89,11 +84,9 @@ export class AuthService {
       avatar: base64Avatar,
     });
 
-    const { email, firstName, lastName, spaceId, avatar, _id } = user;
-
     const { accessToken, refreshToken } = await this.getJwtFromPayload({
-      email,
-      _id,
+      email: user.email,
+      _id: user._id,
     });
 
     const hashedRefreshToken = await hash(
@@ -104,13 +97,10 @@ export class AuthService {
     user.refreshToken = hashedRefreshToken;
     user.save();
 
+    const userResponse = user.toJSON() as User;
+
     return {
-      id: _id,
-      email,
-      firstName,
-      lastName,
-      spaceId,
-      avatar,
+      ...userResponse,
       accessToken,
       refreshToken,
     };
@@ -119,8 +109,9 @@ export class AuthService {
   async refresh(userId: string, refreshToken: string) {
     const user = await this.usersService.getUser(userId);
 
-    if (!user)
+    if (!user.refreshToken || !refreshToken.length) {
       throw new HttpException("Coundn't find user to refresh token", 404);
+    }
 
     const matchesRefreshToken = await compare(refreshToken, user.refreshToken);
 
