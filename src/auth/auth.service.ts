@@ -108,7 +108,7 @@ export class AuthService {
   }
 
   async refresh(userId: string, jti: string) {
-    if (!jti.length || !(await this.verifySession(userId, jti)))
+    if (!jti?.length || !(await this.verifySession(userId, jti)))
       throw new HttpException('Invalid or expired refresh token', 401);
 
     const user = await this.usersService.getUser(userId);
@@ -128,7 +128,7 @@ export class AuthService {
 
     const parsedSession = JSON.parse(session || '{}');
 
-    if (Object.keys(parsedSession).length) {
+    if (Object.keys(parsedSession)?.length) {
       const ttl = await this.redis.ttl(key);
       const newPayload = JSON.stringify({ ...parsedSession, active: false });
       await this.redis.set(key, newPayload, 'EX', ttl);
@@ -165,7 +165,7 @@ export class AuthService {
 
     const parsedSession = JSON.parse(session || '{}');
 
-    return Object.keys(parsedSession).length && parsedSession.active;
+    return Object.keys(parsedSession)?.length && parsedSession.active;
   }
 
   async registerSession(userId: string, jti: string) {
@@ -174,7 +174,7 @@ export class AuthService {
 
     const sortedSessions = userSessions.sort();
 
-    if (sortedSessions.length >= MAX_USER_SESSIONS) {
+    if (sortedSessions?.length >= MAX_USER_SESSIONS) {
       await this.redis.del(sortedSessions[0]);
     }
 
