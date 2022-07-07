@@ -6,7 +6,7 @@ import { Request } from 'express';
 import { strategies } from '.';
 
 export interface AuthRefreshRequest extends Request {
-  user: { _id: string; email: string; refreshToken: string };
+  user: { _id: string; email: string; jti: string; refreshToken: string };
 }
 
 @Injectable()
@@ -25,6 +25,11 @@ export class RefreshStrategy extends PassportStrategy(
 
   async validate(req: Request, payload: any) {
     const refreshToken = req.get('authorization').replace('Bearer', '').trim();
-    return { _id: payload._id, email: payload.email, refreshToken };
+    return {
+      _id: payload._id,
+      email: payload.email,
+      jti: payload.jti,
+      refreshToken,
+    };
   }
 }

@@ -37,9 +37,6 @@ class User {
 
   @Prop({ type: String })
   avatar?: string;
-
-  @Prop({ type: String })
-  refreshToken?: string;
 }
 
 const UserSchema = SchemaFactory.createForClass(User);

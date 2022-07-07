@@ -42,15 +42,15 @@ export class AuthController {
     return this.authService.register({ ...signUpDto, avatar });
   }
 
-  @UseGuards(AuthGuard(strategies.JWT))
+  @UseGuards(AuthGuard(strategies.REFRESH))
   @Post('logout')
-  async logout(@Req() req: AuthRequest) {
-    await this.authService.logout(req.user._id);
+  async logout(@Req() req: AuthRefreshRequest) {
+    await this.authService.logout(req.user._id, req.user.jti);
   }
 
   @UseGuards(AuthGuard(strategies.REFRESH))
   @Post('refresh')
   refresh(@Req() req: AuthRefreshRequest) {
-    return this.authService.refresh(req.user._id, req.user.refreshToken);
+    return this.authService.refresh(req.user._id, req.user.jti);
   }
 }

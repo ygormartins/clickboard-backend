@@ -6,6 +6,7 @@ import { BoardsModule } from './boards/boards.module';
 import { DatabaseModule } from './database/database.module';
 import { ColumnsModule } from './columns/columns.module';
 import { TicketsModule } from './tickets/tickets.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TicketsModule } from './tickets/tickets.module';
     UsersModule,
     AuthModule,
     DatabaseModule,
+    RedisModule,
     BoardsModule,
     ColumnsModule,
     TicketsModule,
