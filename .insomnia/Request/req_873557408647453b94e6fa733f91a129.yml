@@ -1,7 +1,7 @@
 _id: req_873557408647453b94e6fa733f91a129
 type: Request
 parentId: fld_78be03144564469b9f2fca051a1ea349
-modified: 1656845310992
+modified: 1657245096477
 created: 1656835786990
 url: "{{ _.baseUrl }}/{{ _.path }}/signup"
 name: Sign Up
@@ -18,7 +18,7 @@ body:
       description: ""
       id: pair_ac975dded9c1451f8df224588e83e884
     - name: email
-      value: ygorbacana123@gmail.com
+      value: ygormartinsr@outlook.com
       description: ""
       id: pair_b4c7ed7f2fa14c6bb3d78403b25d9054
     - name: password
@@ -31,7 +31,7 @@ body:
       id: pair_14ed54098a5849bb8803b7579404eb9f
       type: file
       fileName: /home/ygor/Pictures/Screenshot from 2021-08-06 14-07-06.png
-      disabled: true
+      disabled: false
 parameters: []
 headers:
   - name: Content-Type

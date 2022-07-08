@@ -1,19 +1,19 @@
-_id: req_8f0f8e01a1fb4edea195026b329d8659
+_id: req_f685f25ce4fb4d349360e5cc37326742
 type: Request
-parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1657026455940
-created: 1655984413049
-url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Get Tickets
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1657124637300
+created: 1657026631750
+url: "{{ _.baseUrl }}/{{ _.path }}/refresh"
+name: Refresh
 description: ""
-method: GET
+method: POST
 body: {}
 parameters: []
 headers: []
 authentication:
   type: bearer
-  token: "{{ _.accessToken }}"
-metaSortKey: -1655984449976
+  token: "{{ _.refreshToken }}"
+metaSortKey: -1656835185056
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

@@ -1,10 +1,10 @@
-_id: req_8f0f8e01a1fb4edea195026b329d8659
+_id: req_3c52a3e04cec415b93cbddbced265e5e
 type: Request
-parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1657026455940
-created: 1655984413049
-url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Get Tickets
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1657030566476
+created: 1657030550508
+url: "{{ _.baseUrl }}/{{ _.path }}/whoami"
+name: Who am I?
 description: ""
 method: GET
 body: {}
@@ -13,7 +13,7 @@ headers: []
 authentication:
   type: bearer
   token: "{{ _.accessToken }}"
-metaSortKey: -1655984449976
+metaSortKey: -1657030550508
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

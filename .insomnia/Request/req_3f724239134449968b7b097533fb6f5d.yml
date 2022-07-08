@@ -1,7 +1,7 @@
 _id: req_3f724239134449968b7b097533fb6f5d
 type: Request
 parentId: fld_29cebc81d82c4d258f18432c2c366375
-modified: 1656850858107
+modified: 1657251329631
 created: 1655552079277
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Column
@@ -11,8 +11,8 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"label": "Done",
-    	"board": "62bcb5fca1cf9fb3dabe8a7a",
+    	"label": "To-do",
+    	"boardId": "f4b6ea64-a98a-49b7-9bb8-0ddd6fa76865",
     	"color": "#146d7e"
     }
 parameters: []

@@ -1,14 +1,49 @@
 _id: req_0fa6df029283452093c33597cfaead08
 type: Request
 parentId: fld_c81efbad550e4aaab80328d1183e3216
-modified: 1656850968949
+modified: 1657251173144
 created: 1655541936812
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Get Boards
 description: ""
 method: GET
 body: {}
-parameters: []
+parameters:
+  - name: limit
+    value: "5"
+    description: ""
+    id: pair_e23740151a104026a7aadd13d9ab4857
+    disabled: true
+  - name: page
+    value: "1"
+    description: ""
+    id: pair_fa1742be5f9c4249bcb689b2bc741f1f
+    disabled: true
+  - name: sort
+    value: |-
+      {
+        "name": "asc"
+      }
+    description: ""
+    id: pair_296b8d555ad44ba5aebaeec32e8f3c52
+    disabled: true
+    type: text
+    multiline: application/json
+  - name: filter
+    value: |-
+      {
+        "name": "My first Board"
+      }
+    description: ""
+    id: pair_3c5046fcde884280b2bc93bc04161424
+    type: text
+    multiline: application/json
+    disabled: true
+  - name: paginated
+    value: "false"
+    description: ""
+    id: pair_58e508351d584cc9996d229a8a6ae394
+    disabled: true
 headers: []
 authentication:
   type: bearer
