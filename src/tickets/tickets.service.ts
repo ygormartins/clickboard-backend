@@ -18,6 +18,7 @@ export class TicketsService {
       skip,
       take: limit,
       orderBy: sort,
+      include: { assignedTo: true },
     });
   }
 
