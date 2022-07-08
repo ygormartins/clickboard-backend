@@ -31,6 +31,7 @@ model Board {
   slug        String
   description String?
   columns     Column[]
+  tags        Tag[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -54,7 +55,19 @@ model Ticket {
   column      Column   @relation(fields: [columnId], references: [id], onDelete: Cascade)
   columnId    String
   assignedTo  User[]
+  tags        Tag[]
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  label     String
+  color     String?
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  boardId   String
+  tickets   Ticket[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

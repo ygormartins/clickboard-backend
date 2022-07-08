@@ -14,6 +14,11 @@ export class CreateTicketDto {
   readonly assignedTo?: string[];
 
   @IsOptional()
+  @IsArray()
+  @Type(() => String)
+  readonly tags?: string[];
+
+  @IsOptional()
   @IsString()
   readonly description?: string;
 }

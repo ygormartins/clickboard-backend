@@ -24,7 +24,10 @@ export class ColumnsService {
   async getColumn(columnId: string): Promise<Column> {
     return this.dbService.column.findUnique({
       where: { id: columnId },
-      include: { board: true, tickets: { include: { assignedTo: true } } },
+      include: {
+        board: true,
+        tickets: { include: { assignedTo: true, tags: true } },
+      },
     });
   }
 

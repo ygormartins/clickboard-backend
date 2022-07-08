@@ -18,14 +18,14 @@ export class TicketsService {
       skip,
       take: limit,
       orderBy: sort,
-      include: { assignedTo: true },
+      include: { assignedTo: true, tags: true },
     });
   }
 
   async getTicket(ticketId: string): Promise<Ticket> {
     return this.dbService.ticket.findUnique({
       where: { id: ticketId },
-      include: { column: true, assignedTo: true },
+      include: { column: true, assignedTo: true, tags: true },
     });
   }
 
@@ -44,6 +44,11 @@ export class TicketsService {
             id: userId,
           })),
         },
+        tags: {
+          connect: createTicketDto.tags?.map((tagId) => ({
+            id: tagId,
+          })),
+        },
       },
     });
   }
@@ -58,6 +63,11 @@ export class TicketsService {
         assignedTo: {
           connect: updateTicketDto.assignedTo?.map((userId) => ({
             id: userId,
+          })),
+        },
+        tags: {
+          connect: updateTicketDto.tags?.map((tagId) => ({
+            id: tagId,
           })),
         },
       },

@@ -31,7 +31,7 @@ export class BoardsService {
   async getBoard(boardId: string): Promise<Board> {
     return this.dbService.board.findUnique({
       where: { id: boardId },
-      include: { columns: true },
+      include: { columns: true, tags: true },
     });
   }
 

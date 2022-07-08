@@ -14,4 +14,9 @@ export class UpdateTicketDto {
   @IsArray()
   @Type(() => String)
   readonly assignedTo?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @Type(() => String)
+  readonly tags?: string[];
 }
