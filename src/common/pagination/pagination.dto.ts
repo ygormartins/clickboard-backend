@@ -1,5 +1,4 @@
 import {
-  IsArray,
   IsBoolean,
   IsInt,
   IsObject,
@@ -35,11 +34,6 @@ export class PaginationDTO {
   @IsOptional()
   filter?: any = {};
 
-  @Type(() => String)
-  @IsArray()
-  @IsOptional()
-  fields?: string[] = [];
-
   @IsString()
   @IsOptional()
   q: string;
@@ -52,7 +46,6 @@ export class PaginationDTO {
 
 export class PaginatedQuery {
   filter: any;
-  project: any;
   sort: any;
   skip: number;
   limit: number;

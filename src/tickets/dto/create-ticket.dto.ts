@@ -6,7 +6,7 @@ export class CreateTicketDto {
   readonly title: string;
 
   @IsString()
-  readonly column: string;
+  readonly columnId: string;
 
   @IsOptional()
   @IsArray()

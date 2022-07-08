@@ -5,7 +5,7 @@ export class CreateColumnDto {
   readonly label: string;
 
   @IsString()
-  readonly board: string;
+  readonly boardId: string;
 
   @IsOptional()
   @IsString()

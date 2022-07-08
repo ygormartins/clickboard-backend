@@ -30,7 +30,7 @@ export const paginated = async (
 };
 
 export const buildPaginationQuery = (query: PaginationDTO): PaginatedQuery => {
-  const { filter = {}, sort = {}, fields = [], limit, page, q } = query;
+  const { filter = {}, sort = {}, limit, page, q } = query;
 
   if (q) {
     filter['$text'] = {
@@ -38,13 +38,7 @@ export const buildPaginationQuery = (query: PaginationDTO): PaginatedQuery => {
     };
   }
 
-  const project = {};
-
-  for (const field of fields) {
-    project[field] = 1;
-  }
-
   const skip = (page - 1) * limit;
 
-  return { filter, project, sort, skip, limit };
+  return { filter, sort, skip, limit };
 };

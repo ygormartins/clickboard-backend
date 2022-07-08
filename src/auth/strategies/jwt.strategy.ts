@@ -6,7 +6,7 @@ import { Request } from 'express';
 import { strategies } from '.';
 
 export interface AuthRequest extends Request {
-  user: { _id: string; email: string };
+  user: { id: string; email: string };
 }
 
 @Injectable()
@@ -20,6 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, strategies.JWT) {
   }
 
   async validate(payload: any) {
-    return { _id: payload._id, email: payload.email };
+    return { id: payload.id, email: payload.email };
   }
 }

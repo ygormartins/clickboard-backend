@@ -24,7 +24,7 @@ export class AuthController {
   @UseGuards(AuthGuard(strategies.JWT))
   @Get('whoami')
   whoami(@Req() req: AuthRequest) {
-    return this.authService.userInfo(req.user._id);
+    return this.authService.userInfo(req.user.id);
   }
 
   @UseGuards(AuthGuard(strategies.LOCAL))
@@ -45,12 +45,12 @@ export class AuthController {
   @UseGuards(AuthGuard(strategies.REFRESH))
   @Post('logout')
   async logout(@Req() req: AuthRefreshRequest) {
-    await this.authService.logout(req.user._id, req.user.jti);
+    await this.authService.logout(req.user.id, req.user.jti);
   }
 
   @UseGuards(AuthGuard(strategies.REFRESH))
   @Post('refresh')
   refresh(@Req() req: AuthRefreshRequest) {
-    return this.authService.refresh(req.user._id, req.user.jti);
+    return this.authService.refresh(req.user.id, req.user.jti);
   }
 }

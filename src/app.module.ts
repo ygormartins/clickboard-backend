@@ -3,7 +3,6 @@ import { ConfigModule } from './config/config.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { BoardsModule } from './boards/boards.module';
-import { DatabaseModule } from './database/database.module';
 import { ColumnsModule } from './columns/columns.module';
 import { TicketsModule } from './tickets/tickets.module';
 import { RedisModule } from './redis/redis.module';
@@ -13,7 +12,6 @@ import { RedisModule } from './redis/redis.module';
     ConfigModule,
     UsersModule,
     AuthModule,
-    DatabaseModule,
     RedisModule,
     BoardsModule,
     ColumnsModule,

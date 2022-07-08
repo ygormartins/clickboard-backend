@@ -1,54 +1,59 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { User } from '@prisma/client';
 import { buildPaginationQuery } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
-import { ConfigService } from 'src/config/config.service';
+import { DatabaseService } from 'src/database/database.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { User, UserDocument } from './users.schema';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const nanoId = require('nanoid-esm');
 
 @Injectable()
 export class UsersService {
-  constructor(
-    @InjectModel(User.name)
-    private userModel: Model<UserDocument>,
-    private configService: ConfigService,
-  ) {}
+  constructor(private dbService: DatabaseService) {}
 
-  async getUsers(query: PaginationDTO): Promise<UserDocument[]> {
-    const { filter, project, sort, skip, limit } = buildPaginationQuery(query);
+  async getUsers(query: PaginationDTO): Promise<User[]> {
+    const { filter, sort, skip, limit } = buildPaginationQuery(query);
 
-    return this.userModel
-      .find(filter, project)
-      .sort(sort)
-      .skip(skip)
-      .limit(limit);
+    return this.dbService.user.findMany();
   }
 
   async getUsersCount(query: PaginationDTO): Promise<number> {
     const { filter } = buildPaginationQuery(query);
 
-    return this.userModel.count(filter);
+    return this.dbService.user.count();
   }
 
-  async getUser(userId: string): Promise<UserDocument> {
-    return this.userModel.findById(userId);
+  async getUser(userId: string): Promise<User> {
+    return this.dbService.user.findUnique({
+      where: { id: userId },
+    });
   }
 
-  async getUserByEmail(email: string): Promise<UserDocument> {
-    return this.userModel.findOne({ email });
+  async getUserByEmail(email: string): Promise<User> {
+    return this.dbService.user.findUnique({
+      where: { email: email },
+    });
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<any> {
-    return this.userModel.create(createUserDto);
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
+    return this.dbService.user.create({
+      data: { ...createUserDto, spaceId: nanoId() },
+    });
   }
 
-  async updateUser(userId: string, updateUserDto: UpdateUserDto): Promise<any> {
-    return this.userModel.updateOne({ _id: userId }, updateUserDto);
+  async updateUser(
+    userId: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User> {
+    return this.dbService.user.update({
+      where: { id: userId },
+      data: updateUserDto,
+    });
   }
 
-  async deleteUser(userId: string): Promise<any> {
-    return this.userModel.deleteOne({ _id: userId });
+  async deleteUser(userId: string): Promise<User> {
+    return this.dbService.user.delete({ where: { id: userId } });
   }
 }

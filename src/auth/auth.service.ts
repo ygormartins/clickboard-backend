@@ -2,7 +2,6 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import Redis from 'ioredis';
 import { ConfigService } from 'src/config/config.service';
-import { User, UserDocument } from 'src/users/users.schema';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import { SignUpDto } from './dto/signup.dto';
@@ -10,6 +9,7 @@ import { hash, compare } from 'bcrypt';
 import { resizeImage } from 'src/utils/image.utils';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import { ulid } from 'ulid';
+import { User } from '@prisma/client';
 
 const MAX_USER_SESSIONS = 5;
 
@@ -40,22 +40,20 @@ export class AuthService {
 
     const { accessToken, refreshToken } = await this.getJwtFromPayload(
       user.email,
-      user._id,
+      user.id,
       jti,
     );
 
-    await this.registerSession(user._id, jti);
-
-    const userResponse = user.toJSON() as User;
+    await this.registerSession(user.id, jti);
 
     return {
-      ...userResponse,
+      ...user,
       accessToken,
       refreshToken,
     };
   }
 
-  async userInfo(userId: string): Promise<Partial<UserDocument>> {
+  async userInfo(userId: string): Promise<Partial<User>> {
     const user = await this.usersService.getUser(userId);
 
     if (!user) throw new HttpException('User not found', 404);
@@ -92,16 +90,14 @@ export class AuthService {
 
     const { accessToken, refreshToken } = await this.getJwtFromPayload(
       user.email,
-      user._id,
+      user.id,
       jti,
     );
 
-    await this.registerSession(user._id, jti);
-
-    const userResponse = user.toJSON() as User;
+    await this.registerSession(user.id, jti);
 
     return {
-      ...userResponse,
+      ...user,
       accessToken,
       refreshToken,
     };
@@ -115,7 +111,7 @@ export class AuthService {
 
     const { accessToken } = await this.getJwtFromPayload(
       user.email,
-      user._id,
+      user.id,
       ulid(),
     );
 
@@ -137,19 +133,19 @@ export class AuthService {
 
   async getJwtFromPayload(
     email: string,
-    _id: string,
+    id: string,
     jti: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
-        { email, _id },
+        { email, id },
         {
           secret: this.configService.get('JWT_SECRET'),
           expiresIn: Number(this.configService.get('JWT_EXPIRY')),
         },
       ),
       this.jwtService.signAsync(
-        { email, _id, jti },
+        { email, id, jti },
         {
           secret: this.configService.get('REFRESH_SECRET'),
           expiresIn: Number(this.configService.get('REFRESH_EXPIRY')),
