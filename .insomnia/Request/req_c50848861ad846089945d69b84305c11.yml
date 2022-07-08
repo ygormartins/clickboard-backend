@@ -1,19 +1,19 @@
-_id: req_8f0f8e01a1fb4edea195026b329d8659
+_id: req_c50848861ad846089945d69b84305c11
 type: Request
-parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1657026455940
-created: 1655984413049
-url: "{{ _.baseUrl }}/{{ _.path }}"
-name: Get Tickets
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1657201777066
+created: 1657026565834
+url: "{{ _.baseUrl }}/{{ _.path }}/logout"
+name: Logout
 description: ""
-method: GET
+method: POST
 body: {}
 parameters: []
 headers: []
 authentication:
   type: bearer
-  token: "{{ _.accessToken }}"
-metaSortKey: -1655984449976
+  token: "{{ _.refreshToken }}"
+metaSortKey: -1656835185031
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

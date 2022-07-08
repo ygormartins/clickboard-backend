@@ -1,7 +1,7 @@
 _id: req_321779f4d5a84e548c49b1eaa31bcc7c
 type: Request
 parentId: fld_941449019d89407ab1d010175076ecb6
-modified: 1656850823050
+modified: 1657251413333
 created: 1655984449926
 url: "{{ _.baseUrl }}/{{ _.path }}"
 name: Create Ticket
@@ -11,10 +11,10 @@ body:
   mimeType: application/json
   text: >-
     {
-    	"title": "My first ticket with a sort of longer title hehe blah",
-    	"column": "62bcb785a1cf9fb3dabe8c8e",
+    	"title": "My first second with a sort of longer title hehe blah",
+    	"columnId": "764180b6-22bf-4dd4-84f6-dd95cf2c3815",
     	"description": "This is a very nice description that was written only for test purposes blah blah blah bleh bleh bleh",
-    	"assignedTo": ["62c169e0ee65f655e534afd6"]
+    	"assignedTo": ["1f2b9798-0641-4907-b6de-2b316da5a23c"]
     }
 parameters: []
 headers:

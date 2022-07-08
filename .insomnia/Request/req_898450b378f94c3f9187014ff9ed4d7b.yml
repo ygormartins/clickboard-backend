@@ -1,0 +1,30 @@
+_id: req_898450b378f94c3f9187014ff9ed4d7b
+type: Request
+parentId: fld_78be03144564469b9f2fca051a1ea349
+modified: 1657193771712
+created: 1657193738103
+url: "{{ _.baseUrl }}/{{ _.path }}/test"
+name: Test
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"key": "testKey",
+    	"value": "I'm a random value"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_c0acf15322344390b3cb1a12805ef5ec
+authentication: {}
+metaSortKey: -1657193738103
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
