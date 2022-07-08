@@ -39,7 +39,9 @@ export class TicketsService {
       data: {
         ...createTicketDto,
         assignedTo: {
-          connect: createTicketDto.assignedTo.map((userId) => ({ id: userId })),
+          connect: createTicketDto.assignedTo?.map((userId) => ({
+            id: userId,
+          })),
         },
       },
     });
@@ -53,7 +55,9 @@ export class TicketsService {
       data: {
         ...updateTicketDto,
         assignedTo: {
-          connect: updateTicketDto.assignedTo.map((userId) => ({ id: userId })),
+          connect: updateTicketDto.assignedTo?.map((userId) => ({
+            id: userId,
+          })),
         },
       },
       where: { id: ticketId },
