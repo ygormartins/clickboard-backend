@@ -1,15 +1,10 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+import { Module } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 import { BoardsController } from './boards.controller';
-import { Board, BoardSchema } from './boards.schema';
-import { ColumnsModule } from 'src/columns/columns.module';
+import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: Board.name, schema: BoardSchema }]),
-    forwardRef(() => ColumnsModule),
-  ],
+  imports: [DatabaseModule],
   controllers: [BoardsController],
   providers: [BoardsService],
   exports: [BoardsService],

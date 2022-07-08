@@ -10,13 +10,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { strategies } from 'src/auth/strategies';
 import { paginated } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard(strategies.JWT))
 @Controller('boards')
 export class BoardsController {
   constructor(private readonly boardsService: BoardsService) {}

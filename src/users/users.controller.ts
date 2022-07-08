@@ -10,13 +10,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { strategies } from 'src/auth/strategies';
 import { paginated } from 'src/common/pagination/pagination';
 import { PaginationDTO } from 'src/common/pagination/pagination.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersService } from './users.service';
 
-@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard(strategies.JWT))
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
