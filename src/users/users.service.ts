@@ -16,13 +16,18 @@ export class UsersService {
   async getUsers(query: PaginationDTO): Promise<User[]> {
     const { filter, sort, skip, limit } = buildPaginationQuery(query);
 
-    return this.dbService.user.findMany();
+    return this.dbService.user.findMany({
+      where: filter,
+      skip,
+      take: limit,
+      orderBy: sort,
+    });
   }
 
   async getUsersCount(query: PaginationDTO): Promise<number> {
     const { filter } = buildPaginationQuery(query);
 
-    return this.dbService.user.count();
+    return this.dbService.user.count({ where: filter });
   }
 
   async getUser(userId: string): Promise<User> {

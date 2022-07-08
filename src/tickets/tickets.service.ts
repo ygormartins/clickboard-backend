@@ -13,7 +13,12 @@ export class TicketsService {
   async getTickets(query: PaginationDTO): Promise<Ticket[]> {
     const { filter, sort, skip, limit } = buildPaginationQuery(query);
 
-    return this.dbService.ticket.findMany();
+    return this.dbService.ticket.findMany({
+      where: filter,
+      skip,
+      take: limit,
+      orderBy: sort,
+    });
   }
 
   async getTicket(ticketId: string): Promise<Ticket> {
@@ -26,7 +31,7 @@ export class TicketsService {
   async getTicketsCount(query: PaginationDTO): Promise<number> {
     const { filter } = buildPaginationQuery(query);
 
-    return this.dbService.ticket.count();
+    return this.dbService.ticket.count({ where: filter });
   }
 
   async createTicket(createTicketDto: CreateTicketDto): Promise<Ticket> {

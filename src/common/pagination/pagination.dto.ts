@@ -1,11 +1,4 @@
-import {
-  IsBoolean,
-  IsInt,
-  IsObject,
-  IsOptional,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsBoolean, IsInt, IsObject, IsOptional, Min } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 
 const DEFAULT_PAGE = 1;
@@ -24,19 +17,15 @@ export class PaginationDTO {
   @IsOptional()
   page?: number = DEFAULT_PAGE;
 
-  @Transform(({ value }) => JSON.parse(value))
+  @Transform(({ value }) => JSON.parse(value || '{}'))
   @IsObject()
   @IsOptional()
   sort?: any = {};
 
-  @Transform(({ value }) => JSON.parse(value))
+  @Transform(({ value }) => JSON.parse(value || '{}'))
   @IsObject()
   @IsOptional()
   filter?: any = {};
-
-  @IsString()
-  @IsOptional()
-  q: string;
 
   @Transform(({ value }: { value: string }) => value.toLowerCase() === 'true')
   @IsBoolean()

@@ -13,7 +13,12 @@ export class ColumnsService {
   async getColumns(query: PaginationDTO): Promise<Column[]> {
     const { filter, sort, skip, limit } = buildPaginationQuery(query);
 
-    return this.dbService.column.findMany();
+    return this.dbService.column.findMany({
+      where: filter,
+      skip,
+      take: limit,
+      orderBy: sort,
+    });
   }
 
   async getColumn(columnId: string): Promise<Column> {
@@ -26,32 +31,8 @@ export class ColumnsService {
   async getColumnsCount(query: PaginationDTO): Promise<number> {
     const { filter } = buildPaginationQuery(query);
 
-    return this.dbService.column.count();
+    return this.dbService.column.count({ where: filter });
   }
-
-  /* async addTicketToColumn(
-    columnId: string,
-    ticketId: Types.ObjectId,
-  ): Promise<ColumnDocument> {
-    const column = await this.columnModel.findById(columnId);
-
-    column.tickets.push(ticketId);
-
-    return column.save();
-  }
-
-  async removeTicketFromColumn(
-    columnId: Types.ObjectId,
-    ticketId: Types.ObjectId,
-  ): Promise<ColumnDocument> {
-    const column = await this.columnModel.findById(columnId);
-
-    column.tickets = column.tickets.filter(
-      (ticket) => String(ticket) != String(ticketId),
-    );
-
-    return column.save();
-  } */
 
   async createColumn(createColumnDto: CreateColumnDto): Promise<Column> {
     return this.dbService.column.create({ data: createColumnDto });

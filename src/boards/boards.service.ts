@@ -14,33 +14,19 @@ export class BoardsService {
   async getBoards(query: PaginationDTO): Promise<Board[]> {
     const { filter, sort, skip, limit } = buildPaginationQuery(query);
 
-    return this.dbService.board.findMany();
+    return this.dbService.board.findMany({
+      where: filter,
+      skip,
+      take: limit,
+      orderBy: sort,
+    });
   }
 
   async getBoardsCount(query: PaginationDTO): Promise<number> {
     const { filter } = buildPaginationQuery(query);
 
-    return this.dbService.board.count();
+    return this.dbService.board.count({ where: filter });
   }
-
-  /* async addColumnToBoard(boardId: string, columnId: string): Promise<Board> {
-    const board = await this.dbService.board.findUnique({
-      where: { id: boardId },
-    });
-  } */
-
-  /* async removeColumFromBoard(
-    boardId: Types.ObjectId,
-    columnId: Types.ObjectId,
-  ): Promise<BoardDocument> {
-    const board = await this.boardModel.findById(boardId);
-
-    board.columns = board.columns.filter(
-      (column) => String(column) != String(columnId),
-    );
-
-    return board.save();
-  } */
 
   async getBoard(boardId: string): Promise<Board> {
     return this.dbService.board.findUnique({
